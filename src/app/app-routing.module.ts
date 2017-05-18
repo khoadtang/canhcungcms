@@ -1,15 +1,15 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {TestViewComponent} from './test-view/test-view.component';
+import {LoginComponent} from './pages/login/login.component';
 
 const appRoutes:Routes = [
-  {path: '', component: TestViewComponent}
+  {path: '', component: LoginComponent}
 ];
 
 @NgModule({
   declarations:[
-    TestViewComponent
+    LoginComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes)

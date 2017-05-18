@@ -5,8 +5,8 @@ import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { HeaderBarComponent } from './header-bar/header-bar.component';
-import { MainMenuComponent } from './main-menu/main-menu.component';
+import { HeaderBarComponent } from './partials/header-bar/header-bar.component';
+import { MainMenuComponent } from './partials/main-menu/main-menu.component';
 
 @NgModule({
   declarations: [
