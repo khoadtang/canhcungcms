@@ -4,18 +4,18 @@
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <form action="../../index2.html" method="post">
+    <form [formGroup]="myForm" novalidate>
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Email">
+        <input type="email" name="email" class="form-control" placeholder="Email" formControlName="email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Mật Khẩu">
+        <input type="password" name="password" class="form-control" placeholder="Mật Khẩu" formControlName="password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">ĐĂNG NHẬP</button>
+          <button type="submit" [disabled]="!myForm.valid" class="btn btn-primary btn-block btn-flat">ĐĂNG NHẬP</button>
         </div>
         <!-- /.col -->
       </div>

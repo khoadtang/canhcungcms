@@ -20,6 +20,7 @@
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
+    "@types/jquery": "^2.0.45",
     "admin-lte": "^2.3.11",
     "block-ui": "^2.70.1",
     "bootstrap": "^3.3.7",
