@@ -6,6 +6,7 @@ import * as $ from 'jquery';
 export class ValidationForm implements OnInit{
   public myForm: FormGroup;
   protected _formBuilder: FormBuilder = new FormBuilder();
+  public showMessage : true;
 
   constructor() {
 
@@ -21,7 +22,7 @@ export class ValidationForm implements OnInit{
     Object.keys(this.myForm.controls).forEach(nameControl => {
       var control = this.myForm.controls[nameControl];
       if(this.hasFocus(control) && this.hasErrors(this.myForm.controls[nameControl])) {
-        $("input[name=" + nameControl + "]")[0].insertAdjacentHTML("afterend", "<small>TEST</small>");
+        $("input[name=" + nameControl + "]")[0].insertAdjacentHTML("afterend", "<small class='hide'>TEST</small>");
       }
     });
   }
