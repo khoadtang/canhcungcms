@@ -16,13 +16,22 @@ export class ValidationForm implements OnInit{
     this.myForm.valueChanges.subscribe(() => {
       this.checkInvalidControl();
     });
+    this.addErrorMessageBlock();
+  }
+
+  addErrorMessageBlock(){
+    Object.keys(this.myForm.controls).forEach(nameControl => {
+      $("input[name=" + nameControl + "]")[0].insertAdjacentHTML("afterend", "<small class='hide' id=error-" + nameControl + ">Error Mesasge</small>");
+    });
   }
 
   checkInvalidControl(){
     Object.keys(this.myForm.controls).forEach(nameControl => {
       var control = this.myForm.controls[nameControl];
-      if(this.hasFocus(control) && this.hasErrors(this.myForm.controls[nameControl])) {
-        $("input[name=" + nameControl + "]")[0].insertAdjacentHTML("afterend", "<small class='hide'>TEST</small>");
+      if (this.hasErrors(this.myForm.controls[nameControl])) {
+        $("#error-" + nameControl).removeClass("hide");
+      } else {
+        $("#error-" + nameControl).addClass("hide");
       }
     });
   }
@@ -32,7 +41,7 @@ export class ValidationForm implements OnInit{
   }
 
   hasFocus(control){
-    return control.touched;
+    return control.untouched;
   }
 
   showErrorsMessage(type: string){
