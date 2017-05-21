@@ -3,6 +3,10 @@ import { ElementRef,Renderer2 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import * as $ from 'jquery';
 
+const ERROR_MESSAGE = {
+  required: 'required'
+}
+
 export class ValidationForm implements OnInit{
   public myForm: FormGroup;
   protected _formBuilder: FormBuilder = new FormBuilder();
@@ -36,13 +40,9 @@ export class ValidationForm implements OnInit{
   }
 
   showErrorsMessage(nameControl: string, errors){
-    $("#error-" + nameControl).removeClass("hide");
-
     Object.keys(errors).forEach(error => {
-      if (error === 'required'){
-        $("#error-" + nameControl).removeClass("hide");
-        $("#error-" + nameControl).text(nameControl + " is required");
-      }
+      $("#error-" + nameControl).removeClass("hide");
+      $("#error-" + nameControl).text(nameControl + " is " + ERROR_MESSAGE[error]);
     });
   }
 
