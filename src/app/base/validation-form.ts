@@ -13,38 +13,46 @@ export class ValidationForm implements OnInit{
   }
 
   ngOnInit() {
-    this.myForm.valueChanges.subscribe(() => {
-      this.checkInvalidControl();
-    });
+    this.validateWhenHasChangeForm();
     this.addErrorMessageBlock();
   }
 
-  addErrorMessageBlock(){
+  validateWhenHasChangeForm(){
     Object.keys(this.myForm.controls).forEach(nameControl => {
-      $("input[name=" + nameControl + "]")[0].insertAdjacentHTML("afterend", "<small class='hide' id=error-" + nameControl + ">Error Mesasge</small>");
+      var control = this.myForm.controls[nameControl];
+      control.valueChanges.subscribe(() => {
+        this.checkInvalidControl(nameControl, control);
+      });
     });
   }
 
-  checkInvalidControl(){
-    Object.keys(this.myForm.controls).forEach(nameControl => {
-      var control = this.myForm.controls[nameControl];
-      if (this.hasErrors(this.myForm.controls[nameControl])) {
+  checkInvalidControl(nameControl, control){
+    var errors = control.errors;
+    if (!errors) {
+      this.hideErrorsMessage(nameControl);
+    } else {
+      this.showErrorsMessage(nameControl, errors);
+    }
+  }
+
+  showErrorsMessage(nameControl: string, errors){
+    $("#error-" + nameControl).removeClass("hide");
+
+    Object.keys(errors).forEach(error => {
+      if (error === 'required'){
         $("#error-" + nameControl).removeClass("hide");
-      } else {
-        $("#error-" + nameControl).addClass("hide");
+        $("#error-" + nameControl).text(nameControl + " is required");
       }
     });
   }
 
-  hasErrors(control){
-    return control.errors !== undefined && control.errors !== null;
+  addErrorMessageBlock(){
+    Object.keys(this.myForm.controls).forEach(nameControl => {
+      $("input[name=" + nameControl + "]")[0].insertAdjacentHTML("afterend", "<small class='hide control-label has-error' id=error-" + nameControl + "></small>");
+    });
   }
 
-  hasFocus(control){
-    return control.untouched;
-  }
-
-  showErrorsMessage(type: string){
-    return "Required";
+  hideErrorsMessage(nameControl: string){
+    $("#error-" + nameControl).addClass("hide");
   }
 }
