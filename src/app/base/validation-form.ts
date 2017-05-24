@@ -10,18 +10,13 @@ const ERROR_MESSAGE = {
 export class ValidationForm implements OnInit{
   public myForm: FormGroup;
   protected _formBuilder: FormBuilder = new FormBuilder();
-  public showMessage : true;
-
-  constructor() {
-
-  }
 
   ngOnInit() {
-    this.validateWhenHasChangeForm();
-    this.addErrorMessageBlock();
+    this.validateControlWhenHasChanged();
+    this.addErrorMessageStructure();
   }
 
-  validateWhenHasChangeForm(){
+  validateControlWhenHasChanged(){
     Object.keys(this.myForm.controls).forEach(nameControl => {
       var control = this.myForm.controls[nameControl];
       control.valueChanges.subscribe(() => {
@@ -31,12 +26,7 @@ export class ValidationForm implements OnInit{
   }
 
   checkInvalidControl(nameControl, control){
-    var errors = control.errors;
-    if (!errors) {
-      this.hideErrorsMessage(nameControl);
-    } else {
-      this.showErrorsMessage(nameControl, errors);
-    }
+    !control.errors ? this.hideErrorsMessage(nameControl) : this.showErrorsMessage(nameControl, control.errors);
   }
 
   showErrorsMessage(nameControl: string, errors){
@@ -46,7 +36,7 @@ export class ValidationForm implements OnInit{
     });
   }
 
-  addErrorMessageBlock(){
+  addErrorMessageStructure(){
     Object.keys(this.myForm.controls).forEach(nameControl => {
       $("input[name=" + nameControl + "]")[0].insertAdjacentHTML("afterend", "<small class='hide control-label has-error' id=error-" + nameControl + "></small>");
     });
